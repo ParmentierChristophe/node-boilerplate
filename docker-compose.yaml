@@ -21,7 +21,7 @@ services:
       - 8081:8081
     volumes:
       - .:/app/
-      - /app/nodemodules
+      - /app/node_modules
     command: npm run dev
 
   migrate:
