@@ -1,0 +1,36 @@
+{
+  "name": "projet",
+  "version": "1.0.0",
+  "description": "project forr forrmation nodejs",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel server --out-dir dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon --legacy-watch --exec npm run restart",
+    "restart": "rimraf dist && npm run build && npm run start",
+    "start": "node dist/index.js",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed:all": "sequelize db:seed:all",
+    "db:migrate:undo:all": "sequelize db:migrate:undo:all"
+  },
+  "author": "Christophe PARMENTIER",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.2.1",
+    "sequelize": "^5.21.12",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2"
+  }
+}

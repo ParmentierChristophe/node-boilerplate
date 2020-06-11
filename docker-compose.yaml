@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:12.2-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: todo
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:pass@postgres:5432/todo
+      NODE_ENV: development
+    ports:
+      - 8081:8081
+    volumes:
+      - .:/app/
+      - /app/nodemodules
+    command: npm run dev
+
+  migrate:
+    build: .
+    entrypoint: node_modules/.bin/sequelize db:migrate --config database/config/config.js --migrations-path database/migrations/
+    environment:
+      - API_ENV=test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    links:
+      - postgres
+
+  migrate-undo-all:
+    build: .
+    entrypoint: node_modules/.bin/sequelize db:migrate:undo:all --config database/config/config.js --migrations-path database/migrations/
+    environment:
+      - API_ENV=test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    links:
+      - postgres
+
+  seed:
+    build: .
+    entrypoint: node_modules/.bin/sequelize db:seed:all --seeders-path database/seeders/
+    environment:
+      - API_ENV=test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    links:
+      - postgres

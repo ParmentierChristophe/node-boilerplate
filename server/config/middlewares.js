@@ -1,0 +1,11 @@
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import morgan from 'morgan';
+
+export default (app) => {
+  app.disable('x-powered-by');
+  app.use(cors());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(morgan('dev'));
+};
