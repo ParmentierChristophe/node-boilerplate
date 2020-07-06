@@ -12,10 +12,10 @@ var _express = require("express");
 var _controllers = _interopRequireDefault(require("./controllers"));
 
 var routes = new _express.Router();
-routes.get('/item', _controllers["default"].getMany); // routes.post('/item', controllers.createOne);
-// routes.get('/item/:id', controllers.getOne);
-// routes.delete('/item/:id', controllers.removeOne);
-// routes.put('/item/:id', controllers.updateOne);
-
+routes.get('/item', _controllers["default"].getMany);
+routes.post('/item', _controllers["default"].createOne);
+routes.get('/item/:id', _controllers["default"].getOne);
+routes["delete"]('/item/:id', _controllers["default"].removeOne);
+routes.put('/item/:id', _controllers["default"].updateOne);
 var _default = routes;
 exports["default"] = _default;

@@ -286,12 +286,12 @@ var updateOne = function updateOne(model) {
 exports.updateOne = updateOne;
 
 var crudControllers = function crudControllers(model) {
-  var a = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var relationModel = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   return {
     removeOne: removeOne(model),
     updateOne: updateOne(model),
     getMany: getMany(model),
-    getOne: getOne(model, a),
+    getOne: getOne(model, relationModel),
     createOne: createOne(model)
   };
 };

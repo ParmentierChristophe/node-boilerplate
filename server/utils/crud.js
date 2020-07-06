@@ -76,10 +76,10 @@ export const updateOne = (model) => async (req, res) => {
   }
 };
 
-export const crudControllers = (model, a = null) => ({
+export const crudControllers = (model, relationModel = null) => ({
   removeOne: removeOne(model),
   updateOne: updateOne(model),
   getMany: getMany(model),
-  getOne: getOne(model, a),
+  getOne: getOne(model, relationModel),
   createOne: createOne(model),
 });
