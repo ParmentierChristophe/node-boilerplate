@@ -12,6 +12,28 @@ var _express = require("express");
 var _controllers = _interopRequireDefault(require("./controllers"));
 
 var routes = new _express.Router();
+/**
+ * @swagger
+ * /item:
+ *    get:
+ *      tags:
+ *          - Item
+ *      summary: this should list all item.
+ *      consumes:
+ *        - application/json
+ *      responses:
+ *        200:
+ *          description: Receive back flavor and flavor Id of recently added cookie.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Items'
+ *      schema:
+ *          $ref: '#/components/schemas/Items'
+ */
+
 routes.get('/item', _controllers["default"].getMany);
 routes.post('/item', _controllers["default"].createOne);
 routes.get('/item/:id', _controllers["default"].getOne);

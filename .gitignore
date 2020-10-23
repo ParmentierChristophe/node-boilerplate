@@ -1,3 +1,6 @@
+# Dist folder
+dist/
+
 # Logs
 logs
 *.log
@@ -79,4 +82,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
 

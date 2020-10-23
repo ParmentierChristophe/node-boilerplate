@@ -1,4 +1,27 @@
 'use strict';
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Item:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         status:
+ *           type: string
+ *         notes:
+ *           type: string
+ *         listId:
+ *           type: integer
+ *     Items:
+ *         type: array
+ *         items:
+ *            $ref: '#/components/schemas/Item'
+ */
+
 module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define(
     'Item',
