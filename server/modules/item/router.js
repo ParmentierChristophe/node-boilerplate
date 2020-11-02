@@ -37,15 +37,18 @@ routes.get('/item', controllers.getMany);
    *     summary: this should create an item.
    *     description: Create new `Item`.
    *     produces:
-   *       - 
    *       - application/json
-   *       - text/plain
-   *     parameters:
-   *       - in: body
-   *         name: body
+   *     consumes:
+   *       - application/json
+   *     requestBody:
    *         required: true
-   *         schema:
-   *           $ref: '#/components/schemas/Item'
+   *         content:
+   *           application/x-www-form-urlencoded:
+   *             schema:
+   *                $ref: '#/components/schemas/Item'
+   *           application/json:
+   *             schema:
+   *                $ref: '#/components/schemas/Item'
    *         description: The `Item` entity to create.
    *     responses:
    *       200:
