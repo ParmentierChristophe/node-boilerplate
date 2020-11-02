@@ -22,6 +22,7 @@
  *         status:
  *           type: string
  *           enum: ['active', 'completed']
+ *           example: active
  *         notes:
  *           type: string
  *           description: A note to item
