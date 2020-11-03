@@ -16,7 +16,7 @@ const routes = new Router();
  *        - application/json
  *      responses:
  *        200:
- *          description: Receive back flavor and flavor Id of recently added cookie.
+ *          description: Get a list of Items.
  *          content:
  *            application/json:
  *              schema:
