@@ -11,37 +11,82 @@ var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/sli
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _pagination = require("./pagination");
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _sequelize = require("sequelize");
 
 var getMany = function getMany(model) {
   return /*#__PURE__*/function () {
     var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-      var docs;
+      var _req$query, q, page, limit, order_by, order_direction, search, order, transform, datas;
+
       return _regenerator["default"].wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.next = 3;
-              return model.findAll();
+              // get the query params
+              _req$query = req.query, q = _req$query.q, page = _req$query.page, limit = _req$query.limit, order_by = _req$query.order_by, order_direction = _req$query.order_direction;
+              search = {};
+              order = []; // add the search term to the search object
 
-            case 3:
-              docs = _context.sent;
+              if (q) {
+                search = {
+                  where: {
+                    name: (0, _defineProperty2["default"])({}, _sequelize.Op.like, "%".concat(q, "%"))
+                  }
+                };
+              } // add the order parameters to the order
+
+
+              if (order_by && order_direction) {
+                order.push([order_by, order_direction]);
+              } // transform function that can be passed to the  paginate method
+
+
+              transform = function transform(records) {
+                return records.map(function (record) {
+                  return {
+                    id: record.id,
+                    name: record.name,
+                    date: (0, _moment["default"])(record.createdAt).format('D-M-Y H:mm A')
+                  };
+                });
+              }; // paginate method that takes in the model, page, limit, search object, order and transform
+
+
+              _context.next = 9;
+              return (0, _pagination.paginate)(model, page, limit, search, order, transform);
+
+            case 9:
+              datas = _context.sent;
               return _context.abrupt("return", res.status(200).json({
-                data: docs
+                success: true,
+                message: "Fetched ".concat(model.name),
+                data: datas
               }));
 
-            case 7:
-              _context.prev = 7;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](0);
-              res.status(400).end();
+              console.log("Failed to fetch ".concat(model.name), _context.t0);
+              return _context.abrupt("return", res.status(500).send({
+                success: false,
+                message: "Failed to fetch ".concat(model.name)
+              }));
 
-            case 10:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 7]]);
+      }, _callee, null, [[0, 13]]);
     }));
 
     return function (_x, _x2) {

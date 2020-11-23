@@ -1,9 +1,56 @@
+import { paginate } from './pagination';
+import moment from 'moment';
+import { Op } from 'sequelize';
+
 export const getMany = (model) => async (req, res) => {
   try {
-    const docs = await model.findAll();
-    return res.status(200).json({ data: docs });
+    // get the query params
+    const { q, page, limit, order_by, order_direction } = req.query;
+
+    let search = {};
+    let order = [];
+
+    // add the search term to the search object
+    if (q) {
+      search = {
+        where: {
+          name: {
+            [Op.like]: `%${q}%`,
+          },
+        },
+      };
+    }
+
+    // add the order parameters to the order
+    if (order_by && order_direction) {
+      order.push([order_by, order_direction]);
+    }
+
+    // transform function that can be passed to the  paginate method
+    const transform = (records) => {
+      return records.map((record) => {
+        return {
+          id: record.id,
+          name: record.name,
+          date: moment(record.createdAt).format('D-M-Y H:mm A'),
+        };
+      });
+    };
+
+    // paginate method that takes in the model, page, limit, search object, order and transform
+    const datas = await paginate(model, page, limit, search, order, transform);
+
+    return res.status(200).json({
+      success: true,
+      message: `Fetched ${model.name}`,
+      data: datas,
+    });
   } catch (error) {
-    res.status(400).end();
+    console.log(`Failed to fetch ${model.name}`, error);
+    return res.status(500).send({
+      success: false,
+      message: `Failed to fetch ${model.name}`,
+    });
   }
 };
 

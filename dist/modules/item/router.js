@@ -22,6 +22,29 @@ var routes = new _express.Router();
  *      description: List all of `Items`.
  *      consumes:
  *        - application/json
+ *      parameters:
+ *        - in: query
+ *          name: page
+ *          type: string
+ *          minimum: 1
+ *          default: 1
+ *          description: Current Page index
+ *        - in: query
+ *          name: limit
+ *          type: string
+ *          minimum: 1
+ *          default: 10
+ *          description: Limit the number of results.
+ *        - in: query
+ *          name: order_by
+ *          type: string
+ *          description: Order by field
+ *        - in: query
+ *          name : order_direction
+ *          type: string
+ *          description: Direction order
+ *          example: asc
+ *
  *      responses:
  *        200:
  *          description: Get a list of Items.
@@ -33,6 +56,15 @@ var routes = new _express.Router();
  *                  $ref: '#/components/schemas/Items'
  *      schema:
  *          $ref: '#/components/schemas/Items'
+ *          _meta:
+ *            type: object
+ *          properties:
+ *            currentPage:
+ *            type: number
+ *            example: 0
+ *          totalPages:
+ *            type: number
+ *            example: 1
  */
 
 routes.get('/item', _controllers["default"].getMany);
@@ -40,7 +72,7 @@ routes.get('/item', _controllers["default"].getMany);
  * @swagger
  * /item:
  *   post:
- *     tags: 
+ *     tags:
  *        - Item
  *     summary: this should create an item.
  *     description: Create new `Item`.
@@ -155,7 +187,7 @@ routes["delete"]('/item/:id', _controllers["default"].removeOne);
  * @swagger
  * /item/{id}:
  *   put:
- *     tags: 
+ *     tags:
  *        - Item
  *     summary: this should update an item by id.
  *     description: Update `Item` by id.
