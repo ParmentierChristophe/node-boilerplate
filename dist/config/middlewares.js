@@ -17,6 +17,10 @@ var _passport = _interopRequireDefault(require("passport"));
 
 var _expressSession = _interopRequireDefault(require("express-session"));
 
+var _localStrategy = require("./passport/strategies/localStrategy");
+
+(0, _localStrategy.localLogin)(_passport["default"]);
+
 var _default = function _default(app) {
   app.disable('x-powered-by');
   app.use((0, _cors["default"])());
@@ -25,6 +29,8 @@ var _default = function _default(app) {
     extended: false
   }));
   app.use((0, _morgan["default"])('dev'));
+  app.use(_passport["default"].initialize());
+  app.use(_passport["default"].session());
   app.use((0, _expressSession["default"])({
     resave: true,
     saveUninitialized: true,
@@ -33,8 +39,6 @@ var _default = function _default(app) {
       maxAge: 1209600000
     }
   }));
-  app.use(_passport["default"].initialize());
-  app.use(_passport["default"].session());
 };
 
 exports["default"] = _default;

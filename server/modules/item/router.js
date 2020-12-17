@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { auth } from '../../config/passport/utils/auth';
 import controllers from './controllers';
 
 const routes = new Router();
@@ -57,7 +58,7 @@ const routes = new Router();
  *            type: number
  *            example: 1
  */
-routes.get('/item', controllers.getMany);
+routes.get('/item', auth.required, controllers.getMany);
 
 /**
  * @swagger
