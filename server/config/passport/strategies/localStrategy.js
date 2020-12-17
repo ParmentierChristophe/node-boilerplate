@@ -9,7 +9,7 @@ export const localLogin = (passport) => {
   passport.use(
     new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
       try {
-        if (!args.email || !args.password) throw new Error('Wrong credentials');
+        if (!email || !password) throw new Error('Wrong credentials');
         let user = await models.User.findOne({ where: { email: email } });
         if (!user) {
           return done(null, false);
