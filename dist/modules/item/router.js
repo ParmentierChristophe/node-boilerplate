@@ -9,6 +9,8 @@ exports["default"] = void 0;
 
 var _express = require("express");
 
+var _auth = require("../../config/passport/utils/auth");
+
 var _controllers = _interopRequireDefault(require("./controllers"));
 
 var routes = new _express.Router();
@@ -67,7 +69,7 @@ var routes = new _express.Router();
  *            example: 1
  */
 
-routes.get('/item', _controllers["default"].getMany);
+routes.get('/item', _auth.auth.required, _controllers["default"].getMany);
 /**
  * @swagger
  * /item:

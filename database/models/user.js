@@ -1,4 +1,5 @@
 'use strict';
+const jwt = require('jsonwebtoken');
 
 /**
  * @openapi
@@ -30,12 +31,30 @@
  *            $ref: '#/components/schemas/User'
  */
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-  }, {});
-  User.associate = function(models) {
+  const User = sequelize.define(
+    'User',
+    {
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+    },
+    {}
+  );
+  User.associate = function (models) {
     // associations can be defined here
+  };
+  User.prototype.generateJWT = function () {
+    let today = new Date();
+    let exp = new Date(today);
+    exp.setDate(today.getDate() + 60);
+
+    return jwt.sign(
+      {
+        id: this.id,
+        email: this.email,
+        exp: parseInt(exp.getTime() / 1000),
+      },
+      'secret'
+    );
   };
   return User;
 };
