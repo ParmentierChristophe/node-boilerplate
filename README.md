@@ -1,4 +1,35 @@
-# nodejs, docker, PostgreSQL, sequelize , API, REST
+# Nod.js Boilerplate
+
+This is a boilerplate to build a starting API with Node.js, Express and PostgreSQL on ES6. It is also configured with babel.
+The sequelize ORM is used on this project, authentication has also been set up with JWT (jsonwebtoken)
+
+- [simple-nodejs-postgresql](#simple-nodejs-postgresql)
+
+  - [Introduction](#introduction)
+    - [Development mode](#development-mode)
+  - [Quick Start](#quick-start)
+  - [Documentation](#documentation)
+
+    - [Folder Structure](#folder-structure)
+      - [Folder database](#folder-database)
+    - [Babel](#babel)
+    - [Nodemon](#nodemon)
+    - [Express](#express)
+    - [PostgreSQL](#postgresql)
+    - [Sequelize](#sequelize)
+    - [Docker](#docker)
+
+  - [Authentication](#authentication)
+
+## Introduction
+
+This is a starting application for create an API with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/), using [PostgreSQL](https://www.postgresql.org/) for database and [Sequelize](https://sequelize.org) as ORM.
+
+### Development mode
+
+The server side Express code will be served by a node server using [Nodemon](https://nodemon.io/) which helps in automatically restarting the server whenever server side code changes.
+
+## Quick Start
 
 ### First Install
 
@@ -58,3 +89,31 @@ $ make seed
 ```sh
 $ make migrate-undo-all
 ```
+
+## Documentation
+
+### Folder Structure
+
+the entrance of the application is `server/index.js`, on folder `database` All files created by Sequelize (migrations, seeds, models, config) and on folder `server` all files for API and for server (config, modules, utils).
+
+#### Folder Database
+
+In the database folder you already have three models and the migration files for creating three `Item`, `List` and `User` tables with a relationship. to create these tables, make with Sequelize:
+
+`$ make migrate`
+
+### Babel
+
+### Nodemon
+
+### Express
+
+### PostgreSQL
+
+### Sequelize
+
+### Docker
+
+## Authentication
+
+For authentication the API uses [Passport](http://www.passportjs.org/) and and token [JWT](https://jwt.io/) with [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
