@@ -14,6 +14,8 @@ const routes = new Router();
  *      description: List all of `Items`.
  *      consumes:
  *        - application/json
+ *      security:
+ *        - ApiKeyAuth: []
  *      parameters:
  *        - in: query
  *          name: page
