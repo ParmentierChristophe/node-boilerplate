@@ -9,6 +9,7 @@ The sequelize ORM is used on this project, authentication has also been set up w
     - [Development mode](#development-mode)
   - [Quick Start](#quick-start)
   - [Documentation](#documentation)
+  - [Endpoints](#endpoints)
 
     - [Folder Structure](#folder-structure)
       - [Folder database](#folder-database)
@@ -89,6 +90,54 @@ $ make seed
 ```sh
 $ make migrate-undo-all
 ```
+
+the server starts on port 8081:
+
+`http://localhost:8081`
+
+## Endpoints
+
+### Swagger Documentation
+
+Allows access to documentation
+
+`GET /api-docs`
+
+### User / Authentication
+
+#### Register
+
+`POST /api/register`
+
+Example request body:
+
+```source-json
+{
+  "email": "wwhite@breaking.bad",
+  "password": "BlueSky"
+}
+```
+
+No authentication required, returns a User
+
+Required fields: `email`, `password`
+
+#### Login
+
+`POST /api/login`
+
+Example request body:
+
+```source-json
+{
+  "email": "wwhite@breaking.bad",
+  "password": "BlueSky"
+}
+```
+
+No authentication required, returns a JWT
+
+Required fields: `email`, `password`
 
 ## Documentation
 
