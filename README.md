@@ -1,4 +1,4 @@
-# Nod.js Boilerplate
+# Node.js Boilerplate
 
 This is a boilerplate to build a starting API with Node.js, Express and PostgreSQL on ES6. It is also configured with babel.
 The sequelize ORM is used on this project, authentication has also been set up with JWT (jsonwebtoken)
