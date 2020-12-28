@@ -9,7 +9,7 @@ export const register = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    return res.status(500).json({ error: 'error' });
+    return res.status(500).json({ error: error });
   }
 };
 
